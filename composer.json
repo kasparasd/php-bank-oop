@@ -1,0 +1,15 @@
+{
+    "name": "bank/v2",
+    "autoload": {
+        "psr-4": {
+            "": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "kasparasd",
+            "email": "kasparas.dapsys@gmail.com"
+        }
+    ],
+    "require": {}
+}
