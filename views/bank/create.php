@@ -3,7 +3,7 @@
 <?php if (isset($_SESSION['accountCreated'])) : ?>
     <div class="col-6 infoAlert" style="margin: auto;">
         <div style="background-color: rgb(0,255,0,0.6);" class="alert alert-dismissible">
-            <button style="float: right;" class="closeBtn">&times;</button>
+            <button style="float: right;" id="closeBtn">&times;</button>
             <span>
 
                 <h2>New Account created</h2>
@@ -17,7 +17,6 @@
             </span>
 
         </div>
-    </div>
     </div>
 <?php endif ?>
 

@@ -1,1 +1,0 @@
-<h1>Account with this id does not exists</h1>

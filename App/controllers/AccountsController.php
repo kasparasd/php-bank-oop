@@ -32,7 +32,7 @@ class AccountsController
 
         if ($account->balance < $data['amount']) {
             // ERROR MESSAGE
-            print_r('not enough money');
+            Message::get()->set('danger', "Not enough money in bank account");
         } else {
             $amountAfterWithdraw = (float) $account->balance - (float) $data['amount'];
             $account->balance = round($amountAfterWithdraw, 2);
@@ -47,7 +47,9 @@ class AccountsController
     {
         $account = (new FileBase('accounts'))->show($url);
         if (count((array) $account) == 0) {
-            return App::redirect('no-account');
+            return App::view('404',[
+                "title"=>404
+            ]);
         }
 
         return (new App())->view('bank/addFunds', [

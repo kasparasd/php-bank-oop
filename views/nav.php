@@ -6,12 +6,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="http://localhost/php-bank-v2/public/accounts">Accounts</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/php-bank-v2/public/createAccount">Create new Account</a>
-                </li>
+                <?php if ($auth) : ?>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="http://localhost/php-bank-v2/public/accounts">Accounts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost/php-bank-v2/public/createAccount">Create new Account</a>
+                    </li>
+                <?php endif ?>
             </ul>
             <div class="d-flex">
                 <?php if ($auth) : ?>
