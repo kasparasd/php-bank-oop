@@ -1,3 +1,4 @@
+<?php require ROOT . 'views/nav.php' ?>
 <div style="width: 90%; margin: auto;">
 
     <table class="table">

@@ -1,3 +1,5 @@
+<?php require ROOT . 'views/nav.php' ?>
+
 <a style="color: navy; text-decoration: none; margin-left: 70px; display:inline-block" href="<?= URL ?>/accounts">
 
     <div>

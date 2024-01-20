@@ -1,3 +1,5 @@
+<?php require ROOT . 'views/nav.php' ?>
+
 <?php if (isset($_SESSION['accountCreated'])) : ?>
     <div class="col-6 infoAlert" style="margin: auto;">
         <div style="background-color: rgb(0,255,0,0.6);" class="alert alert-dismissible">
@@ -41,16 +43,8 @@
         </div>
         <button type="submit" class="btn btn-primary mt-4">Submit</button>
     </form>
-    <?php
-    if (isset($_SESSION['error'])) : ?>
-        <ul>
 
-            <?php foreach ($_SESSION['error'] as $errorMsg) : ?>
-                <li style="color: red;"><?= $errorMsg ?></li>
-            <?php endforeach ?>
-        </ul>
-    <?php unset($_SESSION['error']);
-    endif ?>
+    <?php require ROOT . 'views/parts/formErrors.php'; ?>
 
 </div>
 </body>

@@ -5,6 +5,7 @@ namespace App\controllers;
 use App\App;
 use App\DB\FileBase;
 use App\Message;
+use App\Error;
 
 class AccountsController
 {
@@ -159,20 +160,23 @@ class AccountsController
             }
         }
 
+        $errors = [];
+
         if (!$personalCodeOk) {
-            $_SESSION['error'][] = 'Please check your personal code number. It\'s already registered in our system.';
+            $errors[] = 'Please check your personal code number. It\'s already registered in our system.';
         }
         if (!validPersonalCode($_POST['personalNumber'])) {
-            $_SESSION['error'][] = 'Personal code is not correct';
+            $errors[] = 'Personal code is not correct';
         }
         if (strlen($data['name']) <= 3) {
-            $_SESSION['error'][] = 'Name is too short. Minimum 3 symbols required.';
+            $errors[] = 'Name is too short. Minimum 3 symbols required.';
         }
         if (strlen($data['lastName']) <= 3) {
-            $_SESSION['error'][] = 'Last name is too short. Minimum 3 symbols required.';
+            $errors[] = 'Last name is too short. Minimum 3 symbols required.';
         }
 
-        if ($_SESSION['error']) {
+        if ($errors) {
+            Error::set($errors);
             header('Location:' . URL . '/createAccount');
             exit();
         }

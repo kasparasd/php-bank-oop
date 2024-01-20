@@ -1,4 +1,6 @@
-    <style>
+<?php require ROOT . 'views/nav.php' ?>
+
+  <style>
         .delete {
             display: flex;
             justify-content: center;
@@ -34,7 +36,7 @@
                 <form action="<?= URL ?>/delete/<?= $data['id'] ?>" method="post">
                     <button type="submit" class="btn btn-primary">Yes</button>
                 </form>
-                <a href="./accounts.php" type="submit" class="btn btn-secondary">No</a>
+                <a href="<?= URL ?>/accounts" type="submit" class="btn btn-secondary">No</a>
 
             </div>
         </div>
