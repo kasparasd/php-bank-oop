@@ -12,7 +12,10 @@ class AccountsController
     public function showAll()
     {
         $accounts = (new FileBase('accounts'))->showAll();
-        return (new App())->view('bank/accounts', $accounts);
+        return (new App())->view('bank/accounts', [
+            'accounts' => $accounts,
+            "title" => 'All Accounts'
+        ]);
     }
     public function deductFundsView($url)
     {
@@ -31,8 +34,10 @@ class AccountsController
         $account = (new FileBase('accounts'))->show($url);
 
         if ($account->balance < $data['amount']) {
-            // ERROR MESSAGE
             Message::get()->set('danger', "Not enough money in bank account");
+        }
+       else if ($data['amount'] <= 0) {
+            Message::get()->set('danger', "You can't withdraw 0 or negative amounts");
         } else {
             $amountAfterWithdraw = (float) $account->balance - (float) $data['amount'];
             $account->balance = round($amountAfterWithdraw, 2);
@@ -47,8 +52,8 @@ class AccountsController
     {
         $account = (new FileBase('accounts'))->show($url);
         if (count((array) $account) == 0) {
-            return App::view('404',[
-                "title"=>404
+            return App::view('404', [
+                "title" => 404
             ]);
         }
 
@@ -61,12 +66,16 @@ class AccountsController
     public function addFunds($url, $data)
     {
         $account = (new FileBase('accounts'))->show($url);
+        if ($data['amount'] <= 0) {
+            Message::get()->set('danger', "You can't add 0 or negative amounts");
+        } else {
 
-        $newAmount = (float) $account->balance + (float) $data['amount'];
-        $account->balance = round($newAmount, 2);
-        (new FileBase('accounts'))->update($url, $account);
+            $newAmount = (float) $account->balance + (float) $data['amount'];
+            $account->balance = round($newAmount, 2);
+            (new FileBase('accounts'))->update($url, $account);
 
-        Message::get()->set('success', $data['amount'] . " eur added to account");
+            Message::get()->set('success', $data['amount'] . " eur added to account");
+        }
         return App::redirect('addFunds/' . $url);
     }
 

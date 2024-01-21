@@ -10,7 +10,9 @@ class LoginController
 {
     public function index()
     {
-        return App::view('auth/login');
+        return App::view('auth/login',[
+            'title'=>'Log in'
+        ]);
     }
 
     public function login($request)

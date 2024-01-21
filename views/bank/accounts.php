@@ -16,7 +16,7 @@
         </thead>
         <tbody>
             <?php
-            $accounts = $data;
+            $accounts = $data['accounts'];
             usort($accounts, function ($a, $b) {
                 if ($a->lastName == $b->lastName) {
                     return 0;

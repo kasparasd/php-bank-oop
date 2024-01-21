@@ -8,6 +8,6 @@ class HomeController
 {
     public static function index()
     {
-        return (new App)->view('home', []);
+        return (new App)->view('home', ['title'=>'Home']);
     }
 }

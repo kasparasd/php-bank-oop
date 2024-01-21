@@ -22,21 +22,5 @@
                 <div class="messageAboutFunds hiddenMessage">You can't withdraw more than: € <?= $account->balance ?></div>
             </div>
             <button type="submit" class="btn btn-primary mt-4">Withdraw funds</button>
-            <!-- <?php if ($_SESSION['error']) : ?>
-                <ul class="mt-2">
-                    <li style="color: red;">
-                        <?= $_SESSION['error'] ?>
-                    </li>
-                </ul>
-            <?php endif;
-                    unset($_SESSION['error']) ?>
-            <?php if ($_SESSION['success']) : ?>
-                <ul class="mt-2">
-                    <li style="color: green;">
-                        <?= $_SESSION['success'] ?>
-                    </li>
-                </ul>
-            <?php endif;
-            unset($_SESSION['success']) ?> -->
         </form>
     </div>

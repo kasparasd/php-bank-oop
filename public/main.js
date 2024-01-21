@@ -3017,27 +3017,11 @@ function withinMaxClamp(min, value, max) {
   \*************************************/
 /***/ (() => {
 
-var funds = document.querySelector(".funds-input");
-var fundsInAccount = document.querySelector(".fundsInAccount");
-if (funds) {
-  funds.addEventListener("input", function (e) {
-    console.log("input: ", parseFloat(e.target.value), "maximum: ", parseFloat(fundsInAccount.innerText));
-    if (parseFloat(fundsInAccount.innerText) < parseFloat(e.target.value)) {
-      console.log("prideti");
-      document.querySelector(".messageAboutFunds").classList.remove("hiddenMessage");
-    } else {
-      document.querySelector(".messageAboutFunds").classList.add("hiddenMessage");
-    }
-  });
-}
 var closeButton = document.getElementById("closeBtn");
 var infoAlert = document.querySelector(".infoAlert");
-console.log(closeButton);
-console.log(infoAlert);
 if (closeButton) {
   closeButton.addEventListener("click", function (e) {
     infoAlert.remove();
-    console.log(111);
   });
 }
 
@@ -3054,8 +3038,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.esm.js");
 /* harmony import */ var _closeMessge__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./closeMessge */ "./resources/js/closeMessge.js");
 /* harmony import */ var _closeMessge__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_closeMessge__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _withdrawAmount__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./withdrawAmount */ "./resources/js/withdrawAmount.js");
+/* harmony import */ var _withdrawAmount__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_withdrawAmount__WEBPACK_IMPORTED_MODULE_2__);
 
 
+
+
+/***/ }),
+
+/***/ "./resources/js/withdrawAmount.js":
+/*!****************************************!*\
+  !*** ./resources/js/withdrawAmount.js ***!
+  \****************************************/
+/***/ (() => {
+
+var funds = document.querySelector(".funds-input");
+var fundsInAccount = document.querySelector(".fundsInAccount");
+if (funds) {
+  funds.addEventListener("input", function (e) {
+    if (parseFloat(fundsInAccount.innerText) < parseFloat(e.target.value)) {
+      document.querySelector(".messageAboutFunds").classList.remove("hiddenMessage");
+    } else {
+      document.querySelector(".messageAboutFunds").classList.add("hiddenMessage");
+    }
+  });
+}
 
 /***/ }),
 

@@ -3,7 +3,7 @@
 <?php if (isset($_SESSION['accountCreated'])) : ?>
     <div class="col-6 infoAlert" style="margin: auto;">
         <div style="background-color: rgb(0,255,0,0.6);" class="alert alert-dismissible">
-            <button style="float: right;" id="closeBtn">&times;</button>
+        <button class="btn btn-lg" style="float: right; margin: 0; padding: 0; color: crimson;" id="closeBtn">&times;</button>
             <span>
 
                 <h2>New Account created</h2>
