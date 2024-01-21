@@ -1,6 +1,10 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
     <div class="container-fluid">
-        <a class="navbar-brand" href="http://localhost/php-bank-v2/public/">UniBanca</a>
+        <?php if ($auth) : ?>
+            <a class="navbar-brand" href="<?= URL ?>/accounts">UniBanca</a>
+        <?php else : ?>
+            <a class="navbar-brand" href="<?= URL ?>">UniBanca</a>
+        <?php endif ?>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -8,7 +12,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <?php if ($auth) : ?>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="http://localhost/php-bank-v2/public/accounts">Accounts</a>
+                        <a class="nav-link active" aria-current="page" href="<?= URL ?>/accounts">Accounts</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="http://localhost/php-bank-v2/public/createAccount">Create new Account</a>

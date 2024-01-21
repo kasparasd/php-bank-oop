@@ -9,9 +9,30 @@ use App\Error;
 
 class AccountsController
 {
-    public function showAll()
+    public function showAll($request)
     {
         $accounts = (new FileBase('accounts'))->showAll();
+        $sort = $request['sort'] ?? null;
+
+        if ($sort == 'name a-z') {
+            usort($accounts, fn ($a, $b) => $a->name <=> $b->name);
+        }
+        if ($sort == 'name z-a') {
+            usort($accounts, fn ($a, $b) => $b->name <=> $a->name);
+        }
+        if ($sort == 'last name a-z') {
+            usort($accounts, fn ($a, $b) => $a->lastName <=> $b->lastName);
+        }
+        if ($sort == 'last name z-a') {
+            usort($accounts, fn ($a, $b) => $b->lastName <=> $a->lastName);
+        }
+        if ($sort == 'balance 0-9') {
+            usort($accounts, fn ($a, $b) => $a->balance <=> $b->balance);
+        }
+        if ($sort == 'balance 9-0') {
+            usort($accounts, fn ($a, $b) => $b->balance <=> $a->balance);
+        }
+
         return (new App())->view('bank/accounts', [
             'accounts' => $accounts,
             "title" => 'All Accounts'
@@ -35,8 +56,7 @@ class AccountsController
 
         if ($account->balance < $data['amount']) {
             Message::get()->set('danger', "Not enough money in bank account");
-        }
-       else if ($data['amount'] <= 0) {
+        } else if ($data['amount'] <= 0) {
             Message::get()->set('danger', "You can't withdraw 0 or negative amounts");
         } else {
             $amountAfterWithdraw = (float) $account->balance - (float) $data['amount'];

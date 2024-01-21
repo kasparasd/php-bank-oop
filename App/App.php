@@ -13,6 +13,7 @@ class App
     public static function run()
     {
         $url = explode('/', $_SERVER['REQUEST_URI']);
+        $url = preg_replace('/\?.*$/', '', $url);
         array_splice($url, 0, 3);
         return self::router($url);
     }
@@ -41,10 +42,10 @@ class App
             }
 
             if ($_SERVER['REQUEST_METHOD'] == 'GET' & count($url) == 1 && $url[0] == '') {
-                return (new AccountsController)->showAll();
+                return (new AccountsController)->showAll($_GET);
             }
             if ($_SERVER['REQUEST_METHOD'] == 'GET' & count($url) == 1 && $url[0] != '' && $url[0] == 'accounts') {
-                return (new AccountsController)->showAll();
+                return (new AccountsController)->showAll($_GET);
             }
             if ($_SERVER['REQUEST_METHOD'] == 'GET' & count($url) == 2 && $url[0] == 'deductFunds') {
                 return (new AccountsController)->deductFundsView($url[1]);
@@ -69,9 +70,6 @@ class App
             }
             if ($_SERVER['REQUEST_METHOD'] == 'POST' & count($url) == 2 && $url[0] == 'delete') {
                 return (new AccountsController)->delete($url[1]);
-            }
-            if ($_SERVER['REQUEST_METHOD'] == 'GET' & count($url) == 1 && $url[0] == 'no-account') {
-                return self::view("noAccount", []);
             }
 
             return App::view('404', [
