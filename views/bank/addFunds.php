@@ -15,28 +15,12 @@
     <h4>Bank account number: <b> <?= $account->accountNumber ?> </b></h4>
     <h5>Owner: <b> <?= $account->name . ' ' . $account->lastName ?> </b> Current balance:<b> € <?= $account->balance ?></b> </h5>
     <hr class="mb-5">
-    <form action="http://localhost/php-bank-v2/public/addFunds/<?= $account->id ?>" method="post">
+    <form action="<?= URL ?>/addFunds/<?= $account->id ?>" method="post">
         <div class="form-group mt-3">
             <label for="amount">Add Funds to account: <b><?= $account->accountNumber ?></b></label>
             <input style="border-color: grey;" class="form-control funds-input" type="number" step="0.01" name="amount">
         </div>
         <button type="submit" class="btn btn-primary mt-4">Add funds</button>
-        <!-- <?php if ($_SESSION['error']) : ?>
-                    <ul class="mt-2">
-                        <li style="color: red;">
-                            <?= $_SESSION['error'] ?>
-                        </li>
-                    </ul>
-                <?php endif;
-                unset($_SESSION['error']) ?>
-                <?php if ($_SESSION['success']) : ?>
-                    <ul class="mt-2">
-                        <li style="color: green;">
-                            <?= $_SESSION['success'] ?>
-                        </li>
-                    </ul>
-                <?php endif;
-                unset($_SESSION['success']) ?> -->
     </form>
 </div>
 </body>

@@ -15,7 +15,7 @@
                         <a class="nav-link active" aria-current="page" href="<?= URL ?>/accounts">Accounts</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="http://localhost/php-bank-v2/public/createAccount">Create new Account</a>
+                        <a class="nav-link" href="<?= URL ?>/createAccount">Create new Account</a>
                     </li>
                 <?php endif ?>
             </ul>

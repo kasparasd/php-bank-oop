@@ -208,6 +208,7 @@ class AccountsController
 
         if ($errors) {
             Error::set($errors);
+            $_SESSION['accountDetails'] = $data;
             header('Location:' . URL . '/createAccount');
             exit();
         }

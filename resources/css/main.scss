@@ -1,8 +1,10 @@
-@import 'bootstrap/scss/bootstrap.scss';
+@import "bootstrap/scss/bootstrap.scss";
+@import "./deletePage.scss";
+@import "./sort.scss";
 
-.hiddenMessage{
-    display: none;
+.hiddenMessage {
+  display: none;
 }
 .messageAboutFunds {
-    color: crimson;
+  color: crimson;
 }

@@ -8,7 +8,7 @@
                 if (isset($_GET['sort'])) {
                     echo $_GET['sort'];
                 } else {
-                    echo 'Choose here';
+                    echo 'Sort here';
                 } ?>
             </option>
             <option value="name a-z">name a-z</option>
