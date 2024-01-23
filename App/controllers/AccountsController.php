@@ -4,6 +4,7 @@ namespace App\controllers;
 
 use App\App;
 use App\DB\FileBase;
+use App\DB\MariaBase;
 use App\Message;
 use App\Error;
 
@@ -11,7 +12,13 @@ class AccountsController
 {
     public function showAll($request)
     {
-        $accounts = (new FileBase('accounts'))->showAll();
+
+        $writer = match (DB) {
+            'file' => new FileBase('accounts'),
+            'maria' => new MariaBase('accounts'),
+        };
+
+        $accounts = $writer->showAll();
         $sort = $request['sort'] ?? null;
 
         if ($sort == 'name a-z') {
@@ -40,7 +47,13 @@ class AccountsController
     }
     public function deductFundsView($url)
     {
-        $account = (new FileBase('accounts'))->show($url);
+        $writer = match (DB) {
+            'file' => new FileBase('accounts'),
+            'maria' => new MariaBase('accounts'),
+        };
+
+        $account = $writer->show($url);
+
         if (count((array) $account) == 0) {
             return App::redirect('no-account');
         }
@@ -52,7 +65,14 @@ class AccountsController
     }
     public function deductFunds($url, $data)
     {
-        $account = (new FileBase('accounts'))->show($url);
+
+        $writer = match (DB) {
+            'file' => new FileBase('accounts'),
+            'maria' => new MariaBase('accounts'),
+        };
+
+        $account = $writer->show($url);
+
 
         if ($account->balance < $data['amount']) {
             Message::get()->set('danger', "Not enough money in bank account");
@@ -61,7 +81,7 @@ class AccountsController
         } else {
             $amountAfterWithdraw = (float) $account->balance - (float) $data['amount'];
             $account->balance = round($amountAfterWithdraw, 2);
-            (new FileBase('accounts'))->update($url, $account);
+            $writer->update($url, $account);
             Message::get()->set('success', $data['amount'] . " eur withdrawed");
         }
 
@@ -70,7 +90,14 @@ class AccountsController
 
     public function addFundsView($url)
     {
-        $account = (new FileBase('accounts'))->show($url);
+
+        $writer = match (DB) {
+            'file' => new FileBase('accounts'),
+            'maria' => new MariaBase('accounts'),
+        };
+
+        $account = $writer->show($url);
+
         if (count((array) $account) == 0) {
             return App::view('404', [
                 "title" => 404
@@ -85,14 +112,21 @@ class AccountsController
 
     public function addFunds($url, $data)
     {
-        $account = (new FileBase('accounts'))->show($url);
+        $writer = match (DB) {
+            'file' => new FileBase('accounts'),
+            'maria' => new MariaBase('accounts'),
+        };
+
+        $account = $writer->show($url);
+
+
         if ($data['amount'] <= 0) {
             Message::get()->set('danger', "You can't add 0 or negative amounts");
         } else {
 
             $newAmount = (float) $account->balance + (float) $data['amount'];
             $account->balance = round($newAmount, 2);
-            (new FileBase('accounts'))->update($url, $account);
+            $writer->update($url, $account);
 
             Message::get()->set('success', $data['amount'] . " eur added to account");
         }
@@ -101,8 +135,12 @@ class AccountsController
 
     public function create()
     {
+        $writer = match (DB) {
+            'file' => new FileBase('accounts'),
+            'maria' => new MariaBase('accounts'),
+        };
 
-        $accounts = (new FileBase('accounts'))->showAll();
+        $accounts = $writer->showAll();
 
         function generateAccountNumber($accounts)
         {
@@ -140,7 +178,13 @@ class AccountsController
 
     public function store($data)
     {
-        $accounts = (new FileBase('accounts'))->showAll();
+        $writer = match (DB) {
+            'file' => new FileBase('accounts'),
+            'maria' => new MariaBase('accounts'),
+        };
+
+        $accounts = $writer->showAll();
+
 
         function validPersonalCode($code): bool
         {
@@ -220,7 +264,10 @@ class AccountsController
             'accountNumber' => $data['bankAccountNumber'],
             'personalCodeNumber' => $data['personalNumber']
         ];
-        (new FileBase('accounts'))->create((object)$newAcc);
+
+
+        $writer->create((object)$newAcc);
+
         $_SESSION['accountCreated'] = 1;
         $_SESSION['newAccount'] = $newAcc;
 
@@ -237,9 +284,15 @@ class AccountsController
 
     public function delete($id)
     {
-        $account = (new FileBase('accounts'))->show($id);
+        $writer = match (DB) {
+            'file' => new FileBase('accounts'),
+            'maria' => new MariaBase('accounts'),
+        };
+
+        $account = $writer->show($id);
+
         if ($account->balance == 0) {
-            (new FileBase('accounts'))->delete($id);
+            $writer->delete($id);
             Message::get()->set('info', 'Account deleted');
             return App::redirect('accounts');
         } else {

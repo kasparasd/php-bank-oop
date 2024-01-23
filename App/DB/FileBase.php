@@ -6,7 +6,7 @@ use App\DB\DataBase;
 
 class FileBase implements DataBase
 {
-    private $file, $data, $index, $indexFile, $save = true;
+    private $file, $data, $index, $indexFile, $save = false;
 
     public function __construct($name)
     {
@@ -23,6 +23,7 @@ class FileBase implements DataBase
     public function __destruct()
     {
         if ($this->save) {
+
             file_put_contents($this->file, json_encode($this->data));
             file_put_contents($this->indexFile, json_encode($this->index));
         }
@@ -30,6 +31,7 @@ class FileBase implements DataBase
 
     public function create(object $data): int
     {
+        $this->save = true;
         $id = $this->index;
         $this->index++;
         $data->id = $id;
@@ -41,6 +43,7 @@ class FileBase implements DataBase
     {
         foreach ($this->data as $key => $value) {
             if ($value->id == $id) {
+                $this->save = true;
                 $data->id = $id;
                 $this->data[$key] = $data;
                 return true;
@@ -53,6 +56,7 @@ class FileBase implements DataBase
     {
         foreach ($this->data as $key => $value) {
             if ($value->id == $id) {
+                $this->save = true;
                 unset($this->data[$key]);
                 $this->data = array_values($this->data);
                 return true;
