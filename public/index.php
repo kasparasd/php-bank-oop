@@ -1,4 +1,5 @@
 <?php
+
 use App\App;
 use App\Auth;
 use App\Message;

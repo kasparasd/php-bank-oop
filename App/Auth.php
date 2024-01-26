@@ -3,6 +3,7 @@
 namespace App;
 
 use App\DB\FileBase;
+use App\DB\MariaBase;
 
 class Auth
 {
@@ -33,7 +34,10 @@ class Auth
 
     public function tryLoginUser($email, $password)
     {
-        $writer = new FileBase('employees');
+        $writer = match (DB) {
+            'file' => new FileBase('employees'),
+            'maria' => new MariaBase('employees'),
+        };
         $users = $writer->showAll();
 
         foreach ($users as $user) {
@@ -44,7 +48,7 @@ class Auth
             }
         }
 
-        // return false;
+        return false;
     }
 
     public function logout()
