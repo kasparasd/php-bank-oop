@@ -12,7 +12,7 @@ class MariaBase implements DataBase
     public function __construct($table)
     {
         $host = 'localhost';
-        $db   = 'forest';
+        $db   = 'bank-php';
         $user = 'root';
         $pass = '';
         $charset = 'utf8mb4';
