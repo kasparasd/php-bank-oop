@@ -27,7 +27,7 @@
   * It is possible to make entries in json file or database
   * If you want to write and read data from json file in public/index.php file uncomment 'file' row and comment 'maria' row and vice versa.
   * ![Database](/img/4.jpg)
-  * MariaBase employee email: employee@maria.lt, password: 12345678
+  * SQL base employee email: employee@maria.lt, password: 12345678
   * FileBase employee email: employee1@gmail.com, password: 12345678
   * Two files were exported from the databases: employees and accounts. They are located in root project folder
 
